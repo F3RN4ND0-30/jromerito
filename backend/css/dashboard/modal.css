@@ -1,0 +1,129 @@
+/* OVERLAY */
+#modalAgregar {
+    display: none; /* oculto por defecto */
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.6);
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.3s ease forwards;
+}
+
+/* MODAL BOX */
+#modalAgregar .modal-content {
+    background-color: #fff;
+    width: 450px;
+    max-width: 90%;
+    border-radius: 12px;
+    padding: 30px 35px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+    position: relative;
+    transform: translateY(-40px);
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Mostrar modal */
+#modalAgregar.show .modal-content {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+/* CERRAR */
+#modalAgregar .close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #999;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+#modalAgregar .close:hover {
+    color: #ef4444; /* rojo llamativo */
+}
+
+/* TÍTULO */
+#modalAgregar h3 {
+    margin-bottom: 20px;
+    font-size: 22px;
+    color: #111827;
+}
+
+/* FORM */
+#modalAgregar form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* LABELS */
+#modalAgregar form label {
+    font-weight: 500;
+    font-size: 14px;
+    color: #374151;
+}
+
+/* INPUTS */
+#modalAgregar form input[type="text"],
+#modalAgregar form input[type="number"],
+#modalAgregar form input[type="file"] {
+    padding: 12px 15px;
+    border-radius: 8px;
+    border: 1px solid #d1d5db;
+    outline: none;
+    font-size: 14px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+#modalAgregar form input:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 2px rgba(37,99,235,0.2);
+}
+
+/* BOTÓN AGREGAR */
+#modalAgregar form button[type="submit"] {
+    background-color: #2563eb;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+#modalAgregar form button[type="submit"]:hover {
+    background-color: #1d4ed8;
+    transform: translateY(-2px);
+}
+
+/* ANIMACIÓN FADE DEL OVERLAY */
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+/* RESPONSIVE */
+@media (max-width: 500px) {
+    #modalAgregar .modal-content {
+        width: 90%;
+        padding: 25px;
+    }
+
+    #modalAgregar h3 {
+        font-size: 20px;
+    }
+
+    #modalAgregar form button[type="submit"] {
+        font-size: 15px;
+        padding: 10px;
+    }
+}

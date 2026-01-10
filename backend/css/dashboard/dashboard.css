@@ -1,0 +1,141 @@
+:root {
+    --bg: #f4f6f9;
+    --primary: #2563eb;
+    --dark: #1f2937;
+    --white: #ffffff;
+    --gray: #6b7280;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    background: var(--bg);
+    color: var(--dark);
+}
+
+/* HEADER */
+header {
+    background: var(--white);
+    padding: 15px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, .08);
+}
+
+header h2 {
+    font-size: 20px;
+}
+
+header a {
+    text-decoration: none;
+    color: white;
+    background: #ef4444;
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+/* CONTENEDOR */
+.container {
+    max-width: 1100px;
+    margin: 40px auto;
+    background: var(--white);
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, .08);
+}
+
+/* BUSCADOR */
+.search-box {
+    margin-bottom: 20px;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 14px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    outline: none;
+}
+
+.search-box input:focus {
+    border-color: var(--primary);
+}
+
+/* TABLA */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead {
+    background: var(--primary);
+    color: white;
+}
+
+th,
+td {
+    padding: 14px;
+    text-align: left;
+}
+
+tbody tr {
+    border-bottom: 1px solid #e5e7eb;
+}
+
+tbody tr:hover {
+    background: #f9fafb;
+}
+
+td:nth-child(2) {
+    font-weight: bold;
+    color: #16a34a;
+}
+
+.prod-img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 6px;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+td img {
+    vertical-align: middle;
+}
+
+/* BOTÓN AGREGAR */
+.btn-agregar {
+    background: #2563eb;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-bottom: 15px;
+}
+
+.btn-agregar:hover {
+    background: #1d4ed8;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    header h2 {
+        font-size: 16px;
+    }
+
+    th,
+    td {
+        font-size: 14px;
+        padding: 10px;
+    }
+}
