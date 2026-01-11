@@ -9,14 +9,14 @@ if (!isset($_SESSION['usuario'])) {
 
 $busqueda = $_GET['q'] ?? '';
 
-$sql = "SELECT Nombre, Precio, Stock, imagen
+$sql = "SELECT IdProducto, Nombre, Precio, Stock, imagen
         FROM tb_productos 
-        WHERE Nombre LIKE ? OR Codigo LIKE ?
+        WHERE Nombre LIKE ?
         LIMIT 10";
 
 $like = "%$busqueda%";
 $stmt = $conexion->prepare($sql);
-$stmt->bind_param("ss", $like, $like);
+$stmt->bind_param("s", $like);
 $stmt->execute();
 
 $result = $stmt->get_result();

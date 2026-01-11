@@ -8,7 +8,6 @@ if (!isset($_SESSION['usuario'])) {
 }
 
 $nombre = trim($_POST['Nombre']);
-$codigo = trim($_POST['Codigo']);
 $precio = trim($_POST['Precio']);
 $stock  = trim($_POST['Stock']);
 
@@ -23,7 +22,7 @@ if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === 0) {
     }
 }
 
-$sql = "INSERT INTO tb_productos (Codigo, Nombre, Precio, Stock, imagen) VALUES (?, ?, ?, ?, ?)";
+$sql = "INSERT INTO tb_productos ( Nombre, Precio, Stock, imagen) VALUES (?, ?, ?, ?)";
 $stmt = $conexion->prepare($sql);
-$stmt->bind_param("ssdss", $codigo, $nombre, $precio, $stock, $imagen);
+$stmt->bind_param("ssdss", $nombre, $precio, $stock, $imagen);
 $stmt->execute();

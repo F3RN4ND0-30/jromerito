@@ -14,18 +14,46 @@ if (!isset($_SESSION['usuario'])) {
     <title>Dashboard</title>
     <link rel="stylesheet" href="../../backend/css/dashboard/dashboard.css">
     <link rel="stylesheet" href="../../backend/css/dashboard/modal.css">
+
+    <!-- jQuery (necesario para DataTables) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
 </head>
 
 <body>
 
     <header>
         <h2>Consulta de Precios</h2>
-        <!-- BOTÓN AGREGAR -->
-        <button id="btnAgregar" class="btn-agregar">Agregar Producto</button>
         <a href="../logout.php">Salir</a>
     </header>
 
-    <!-- MODAL -->
+    <div class="container">
+
+        <div class="search-box">
+            <input type="text" id="buscador" placeholder="Buscar producto por nombre o código">
+            <button id="btnAgregar" class="btn-agregar">Agregar Producto</button>
+        </div>
+
+        <table id="tablaProductos">
+            <thead>
+                <tr>
+                    <th>Producto</th>
+                    <th>Precio</th>
+                    <th>Stock</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="resultado"></tbody>
+        </table>
+    </div>
+
+    <!-- MODAL AGREGAR -->
     <div id="modalAgregar" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
@@ -33,9 +61,6 @@ if (!isset($_SESSION['usuario'])) {
             <form id="formAgregar" enctype="multipart/form-data">
                 <label>Nombre del producto</label>
                 <input type="text" name="Nombre" required>
-
-                <label>Código</label>
-                <input type="text" name="Codigo" required>
 
                 <label>Precio</label>
                 <input type="number" name="Precio" step="0.01" required>
@@ -51,24 +76,31 @@ if (!isset($_SESSION['usuario'])) {
         </div>
     </div>
 
-    <div class="container">
+    <!-- MODAL EDITAR -->
+    <div id="modalEditar" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3>Editar Producto</h3>
+            <form id="formEditar" enctype="multipart/form-data">
+                <input type="hidden" name="IdProducto" id="editarIdProducto">
 
-        <div class="search-box">
-            <input type="text" id="buscador" placeholder="Buscar producto por nombre o código">
+                <label>Nombre del producto</label>
+                <input type="text" name="Nombre" id="editarNombre" required>
+
+                <label>Precio</label>
+                <input type="number" name="Precio" id="editarPrecio" step="0.01" required>
+
+                <label>Stock</label>
+                <input type="number" name="Stock" id="editarStock" required>
+
+                <label>Imagen</label>
+                <input type="file" name="imagen" accept="image/*">
+
+                <button type="submit">Guardar Cambios</button>
+            </form>
         </div>
-
-        <table>
-            <thead>
-                <tr>
-                    <th>Producto</th>
-                    <th>Precio</th>
-                    <th>Stock</th>
-                </tr>
-            </thead>
-            <tbody id="resultado"></tbody>
-        </table>
-
     </div>
+
 
     <script src="../../backend/js/desk/dashboard.js"></script>
 </body>
