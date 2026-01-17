@@ -1,233 +1,239 @@
 :root {
-    --bg: #f4f6f9;
-    --primary: #2563eb;
-    --primary-hover: #1d4ed8;
-    --success: #16a34a;
+    --primary: #6366f1;
+    --secondary: #22d3ee;
+    --accent: #a78bfa;
+    --success: #22c55e;
     --danger: #ef4444;
-    --dark: #1f2937;
+    --dark: #0f172a;
     --white: #ffffff;
-    --gray: #6b7280;
-    --light-gray: #f9fafb;
-    --shadow: rgba(0, 0, 0, 0.08);
+    --glass: rgba(255, 255, 255, 0.15);
+    --border-glass: rgba(255, 255, 255, 0.3);
 }
 
+/* RESET */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* ================= FONDO ANIMADO ================= */
 body {
-    font-family: 'Segoe UI', Tahoma, sans-serif;
-    background: var(--bg);
-    color: var(--dark);
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    min-height: 100vh;
+    color: var(--white);
+    background: linear-gradient(
+        -45deg,
+        #0f172a,
+        #1e293b,
+        #312e81,
+        #0ea5e9
+    );
+    background-size: 400% 400%;
+    animation: gradientMove 12s ease infinite;
+    padding-bottom: 40px;
 }
 
-/* HEADER */
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* ================= HEADER ================= */
 header {
-    background: var(--white);
-    padding: 15px 25px;
+    margin: 24px;
+    padding: 20px 28px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 2px 8px var(--shadow);
-    border-radius: 8px;
-    margin: 20px;
+
+    background: var(--glass);
+    backdrop-filter: blur(14px);
+    border: 1px solid var(--border-glass);
+    border-radius: 20px;
+
+    box-shadow: 0 30px 60px rgba(0,0,0,.35);
 }
 
 header h2 {
-    font-size: 22px;
-    font-weight: 600;
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: .5px;
 }
 
 header a {
     text-decoration: none;
     color: var(--white);
-    background: var(--danger);
-    padding: 10px 16px;
-    border-radius: 8px;
-    font-size: 14px;
-    transition: background 0.2s ease;
+    padding: 12px 22px;
+    border-radius: 14px;
+    font-weight: 600;
+    background: linear-gradient(135deg, #ef4444, #fb7185);
+    box-shadow: 0 15px 30px rgba(239,68,68,.45);
+    transition: transform .25s ease, box-shadow .25s ease;
 }
 
 header a:hover {
-    background: #dc2626;
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 25px 40px rgba(239,68,68,.6);
 }
 
-/* CONTENEDOR PRINCIPAL */
+/* ================= CONTENEDOR ================= */
 .container {
     max-width: 1100px;
-    margin: 20px auto;
-    background: var(--white);
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 10px 25px var(--shadow);
+    margin: auto;
+    padding: 34px;
+
+    background: var(--glass);
+    backdrop-filter: blur(18px);
+    border-radius: 26px;
+    border: 1px solid var(--border-glass);
+
+    box-shadow: 0 40px 80px rgba(0,0,0,.45);
+    animation: floatIn .6s ease;
 }
 
-/* BUSCADOR */
-/* SEARCH BOX + BUTTON JUNTOS */
+@keyframes floatIn {
+    from {
+        opacity: 0;
+        transform: translateY(40px) scale(.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* ================= SEARCH ================= */
 .search-box {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 15px; /* espacio entre input y botón */
-    margin-bottom: 20px;
-    flex-wrap: wrap; /* para que en pantallas pequeñas se acomoden verticalmente */
+    gap: 16px;
+    margin-bottom: 26px;
+    flex-wrap: wrap;
 }
 
 .search-box input {
-    flex: 1; /* ocupa todo el espacio disponible */
-    padding: 14px 16px;
-    font-size: 16px;
-    border-radius: 8px;
-    border: 1px solid #d1d5db;
-    outline: none;
-    transition: all 0.2s ease;
-    min-width: 200px; /* evita que se haga demasiado pequeño */
-}
-
-.search-box input:focus {
-    border-color: var(--primary);
-    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
-}
-
-.search-box .btn-agregar {
-    flex-shrink: 0; /* que no se reduzca */
-    padding: 12px 20px;
+    flex: 1;
+    min-width: 220px;
+    padding: 16px 18px;
     font-size: 15px;
-    margin-top: 16px;
+    color: var(--white);
+
+    background: rgba(0,0,0,.35);
+    border: 1px solid var(--border-glass);
+    border-radius: 14px;
+    outline: none;
+
+    transition: border .25s ease, box-shadow .25s ease;
 }
 
+.search-box input::placeholder {
+    color: rgba(255,255,255,.6);
+}
 
 .search-box input:focus {
-    border-color: var(--primary);
-    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+    border-color: var(--secondary);
+    box-shadow: 0 0 0 3px rgba(34,211,238,.35);
 }
 
-/* BOTÓN AGREGAR */
-.btn-agregar {
-    background: var(--primary);
-    color: var(--white);
-    padding: 12px 24px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: 600;
-    transition: all 0.2s ease;
-    margin-bottom: 20px;
-}
-
-.btn-agregar:hover {
-    background: var(--primary-hover);
-    transform: translateY(-2px);
-}
-
+/* ================= BOTONES ================= */
+.btn-agregar,
 .btn-editar {
-    background: var(--primary);
+    background: linear-gradient(135deg, var(--primary), var(--accent));
     color: var(--white);
-    padding: 10px 20px;
+    padding: 14px 28px;
+    border-radius: 16px;
     border: none;
-    border-radius: 8px;
+    font-weight: 700;
     cursor: pointer;
-    font-weight: 600;
-    transition: all 0.2s ease;
-    margin-bottom: 20px;
+
+    box-shadow: 0 18px 40px rgba(99,102,241,.45);
+    transition: transform .25s ease, box-shadow .25s ease;
 }
 
+.btn-agregar:hover,
 .btn-editar:hover {
-    background: var(--primary-hover);
-    transform: translateY(-2px);
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 28px 60px rgba(99,102,241,.65);
 }
 
-/* TABLA */
+/* ================= TABLA ================= */
 table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 15px;
+    overflow: hidden;
+    border-radius: 18px;
 }
 
 thead {
-    background: var(--primary);
-    color: var(--white);
-    text-transform: uppercase;
-    font-size: 14px;
+    background: linear-gradient(135deg, #6366f1, #22d3ee);
 }
 
-th,
-td {
-    padding: 14px;
-    text-align: left;
+th {
+    padding: 18px;
+    font-size: 13px;
+    text-transform: uppercase;
 }
 
 tbody tr {
-    border-bottom: 1px solid #e5e7eb;
-    transition: background 0.2s ease;
+    background: rgba(255,255,255,.05);
+    border-bottom: 1px solid rgba(255,255,255,.08);
+    transition: transform .2s ease, background .2s ease;
 }
 
 tbody tr:hover {
-    background: var(--light-gray);
+    background: rgba(255,255,255,.12);
+    transform: scale(1.01);
+}
+
+td {
+    padding: 18px;
+    font-size: 14px;
+    background-color: white;
+    color: black;
+}
+
+/* PRIMERA COLUMNA: izquierda + centro vertical */
+#tablaProductos td:first-child {
+    text-align: left;
+    vertical-align: middle;
+}
+
+/* Por si hay imagen + texto */
+#tablaProductos td:first-child {
+    display: flex;
+    align-items: center;   /* centra vertical */
+    gap: 12px;
 }
 
 td:nth-child(2) {
-    font-weight: bold;
-    color: var(--success);
+    color: var(--secondary);
+    font-weight: 700;
 }
 
+/* ================= IMÁGENES ================= */
 .prod-img {
-    width: 50px;
-    height: 50px;
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
     object-fit: cover;
-    border-radius: 8px;
-    margin-right: 10px;
-    vertical-align: middle;
+    box-shadow: 0 12px 25px rgba(0,0,0,.45);
+    transition: transform .25s ease;
 }
 
-td img {
-    vertical-align: middle;
+.prod-img:hover {
+    transform: scale(1.2) rotate(2deg);
 }
 
-/* RESPONSIVE */
-@media (max-width: 1024px) {
-    header h2 {
-        font-size: 20px;
-    }
-}
-
+/* ================= RESPONSIVE ================= */
 @media (max-width: 768px) {
     header {
         flex-direction: column;
-        gap: 12px;
-        align-items: flex-start;
-    }
-
-    .search-box input {
-        font-size: 14px;
-        padding: 12px;
-    }
-
-    th, td {
-        font-size: 13px;
-        padding: 10px;
-    }
-
-    .btn-agregar {
-        padding: 10px 16px;
-        font-size: 14px;
-    }
-}
-
-@media (max-width: 500px) {
-    .prod-img {
-        width: 40px;
-        height: 40px;
-    }
-
-    header {
-        padding: 12px 16px;
+        gap: 14px;
     }
 
     .container {
-        padding: 20px;
-        margin: 10px;
+        margin: 16px;
+        padding: 26px;
     }
 }
