@@ -18,14 +18,19 @@ const formEditar = document.getElementById("formEditar");
 // FUNCION PARA CARGAR PRODUCTOS
 // ------------------------------
 function cargarProductos() {
-    const texto = buscador.value;
+    const texto = buscador.value.trim();
 
     fetch(`../../backend/php/productos/buscar.php?q=${texto}`)
         .then(res => res.json())
         .then(data => {
             productos = data; // Guardamos globalmente
 
-            // Limpiar tabla
+            // Destruir DataTable si existe
+            if ($.fn.DataTable.isDataTable('#tablaProductos')) {
+                $('#tablaProductos').DataTable().clear().destroy();
+            }
+
+            // Limpiar contenido
             resultado.innerHTML = "";
 
             // Agregar filas
@@ -45,23 +50,20 @@ function cargarProductos() {
                 `;
             });
 
-            // Inicializar o refrescar DataTables
-            if ($.fn.DataTable.isDataTable('#tablaProductos')) {
-                $('#tablaProductos').DataTable().destroy();
-            }
-
+            // Inicializar DataTable de nuevo
             $('#tablaProductos').DataTable({
                 language: {
-                    url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
+                    url: 'https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
                 },
                 pageLength: 10,
                 responsive: true,
                 columnDefs: [
-                    // Centrar todas las columnas menos la primera en el body
-                    { className: "dt-center", targets: [1, 2, 3] }
+                    { className: "dt-center", targets: [1, 2, 3] },
+                    { responsivePriority: 1, targets: 0 },
+                    { responsivePriority: 2, targets: 1 },
+                    { responsivePriority: 10001, targets: [2, 3] }
                 ],
                 initComplete: function () {
-                    // Centrar todo el header
                     $('#tablaProductos thead th').css('text-align', 'center');
                 }
             });
@@ -97,6 +99,42 @@ window.addEventListener("click", (e) => {
         setTimeout(() => modalAgregar.style.display = "none", 300);
     }
 });
+
+// ------------------------------
+// Enviar formulario agregar
+// ------------------------------
+formAgregar.addEventListener("submit", async (e) => {
+    e.preventDefault(); // Evita recargar la página
+
+    const formData = new FormData(formAgregar);
+
+    try {
+        const response = await fetch("../../backend/php/productos/agregar.php", {
+            method: "POST",
+            body: formData,
+            credentials: "include" // envía la cookie de sesión
+        });
+
+        const result = await response.json();
+
+        if (result.status === "ok") {
+            alert("Producto agregado correctamente ✅");
+
+            formAgregar.reset();
+            modalAgregar.classList.remove("show");
+            setTimeout(() => modalAgregar.style.display = "none", 300);
+
+            // Recargar la tabla
+            cargarProductos();
+        } else {
+            alert("Error: " + (result.mensaje || "No se pudo agregar el producto"));
+        }
+    } catch (error) {
+        console.error("Error AJAX:", error);
+        alert("Ocurrió un error al agregar el producto.");
+    }
+});
+
 
 // ------------------------------
 // Enviar formulario editar
